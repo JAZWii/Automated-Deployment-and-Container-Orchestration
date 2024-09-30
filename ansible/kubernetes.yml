@@ -2,8 +2,15 @@
   shell: kubectl apply -f ../k8s/deployment.yaml
   args:
     chdir: ../k8s
+  register: deployment_result
+
+- name: Fail if Kubernetes deployment fails
+  fail:
+    msg: "Kubernetes deployment failed with error: {{ deployment_result.stderr }}"
+  when: deployment_result.failed
 
 - name: Apply Kubernetes Service
   shell: kubectl apply -f ../k8s/service.yaml
   args:
     chdir: ../k8s
+  when: deployment_result.ok

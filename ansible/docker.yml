@@ -4,6 +4,12 @@
     tag: latest
     build: yes
     path: ../app/               # Path to your Dockerfile
+  register: docker_build_result
+
+- name: Fail if Docker build fails
+  fail:
+    msg: "Docker build failed with error: {{ docker_build_result.stderr }}"
+  when: docker_build_result.failed
 
 - name: Push Docker image to Docker Hub
   docker_image:
@@ -11,3 +17,9 @@
     tag: latest
     push: yes
     source: build
+  register: docker_push_result
+
+- name: Fail if Docker push fails
+  fail:
+    msg: "Docker push failed with error: {{ docker_push_result.stderr }}"
+  when: docker_push_result.failed
