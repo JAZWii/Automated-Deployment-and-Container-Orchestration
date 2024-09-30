@@ -1,13 +1,13 @@
 - name: Build Docker image
   docker_image:
-    name: jazwii/sample-web-app  # Replace with your image name
+    name: docker.io/jazwii/sample-web-app  # Replace with your image name
     tag: latest
     build: yes
     path: ../app/               # Path to your Dockerfile
 
 - name: Push Docker image to Docker Hub
   docker_image:
-    name: jazwii/sample-web-app
+    name: docker.io/jazwii/sample-web-app
     tag: latest
     push: yes
     source: build
