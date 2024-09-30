@@ -1,0 +1,4 @@
+- hosts: localhost
+  tasks:
+    - include: docker.yml    # Build and push Docker image
+    - include: kubernetes.yml  # Deploy to Kubernetes

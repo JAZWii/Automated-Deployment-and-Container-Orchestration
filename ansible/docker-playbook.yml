@@ -1,7 +1,0 @@
-- hosts: localhost
-  tasks:
-    - name: Build Docker Image
-      command: docker build -t jazwii/sample-app:latest .
-
-    - name: Push Docker Image to Docker Hub
-      command: docker push jazwii/sample-app:latest
