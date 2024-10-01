@@ -2,11 +2,10 @@
   docker_image:
     name: sample-web-app  # Name of the Docker image (this is not the Dockerfile name, but the image name)
     tag: latest           # Tag for the Docker image (e.g., 'latest')
-    source: build
-    build:           # Tells Docker to build the image
-      path: ../app/         # Path to the directory containing the Dockerfile (relative to where the playbook is running)
+    source: build         # Source specifies that the image will be built
+    build:                # The build section tells Docker to build the image
+      path: ../app/       # Path to the directory containing the Dockerfile and app files
   register: docker_build_result  # Registers the result of the build process for later use
-
 
 - name: Fail if Docker build fails
   fail:
@@ -15,11 +14,11 @@
 
 - name: Push Docker image to Docker Hub
   docker_image:
-    name: docker.io/jazwii/sample-web-app
-    tag: latest
-    push: true
-    source: build
-  register: docker_push_result
+    name: docker.io/jazwii/sample-web-app  # Your Docker Hub image URL
+    tag: latest                            # Tag to push the image with
+    push: true                             # Set this to push the image
+    source: local                          # The image source, since it was built locally
+  register: docker_push_result  # Registers the result of the push process
 
 - name: Fail if Docker push fails
   fail:
