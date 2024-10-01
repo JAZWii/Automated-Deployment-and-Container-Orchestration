@@ -1,10 +1,12 @@
 - name: Build Docker image
   community.docker.docker_image:
-    name: Dockerfile
-    tag: latest
-    build: true
-    path: ../app/
-  register: docker_build_result
+    name: sample-web-app  # Name of the Docker image (this is not the Dockerfile name, but the image name)
+    tag: latest           # Tag for the Docker image (e.g., 'latest')
+    build: true           # Tells Docker to build the image
+    path: ../app/         # Path to the directory containing the Dockerfile (relative to where the playbook is running)
+    dockerfile: Dockerfile  # Optional - Specify the Dockerfile name (use this if the file is not named 'Dockerfile')
+  register: docker_build_result  # Registers the result of the build process for later use
+
 
 - name: Fail if Docker build fails
   fail:
