@@ -102,7 +102,17 @@ This playbook will:
     Apply the Kubernetes deployment configuration from ../k8s/deployment.yaml.
     Apply the Kubernetes service configuration from ../k8s/service.yaml.
 
-### 4. Verify Deployment
+### 4. Run the Entire Workflow
+
+If you want to run the entire build, push, and deployment process with a single command, use the following:
+
+```bash
+
+ansible-playbook -i inventory ansible/playbook.yml
+```
+This command will execute both Docker and Kubernetes tasks sequentially.
+
+### 5. Verify Deployment
 
 You can verify the deployment by running:
 
@@ -112,7 +122,7 @@ kubectl get pods -n default
 kubectl get services -n default
 ```
 This will show the status of the deployed pods and services.
-Project Structure
+### Project Structure
 
 ```bash
 
