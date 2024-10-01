@@ -2,7 +2,7 @@
   community.docker.docker_image:
     name: docker.io/jazwii/sample-web-app
     tag: latest
-    build: yes
+    build: true
     path: ../app/
   register: docker_build_result
 
@@ -15,7 +15,7 @@
   community.docker.docker_image:
     name: docker.io/jazwii/sample-web-app
     tag: latest
-    push: yes
+    push: true
     source: build
   register: docker_push_result
 
