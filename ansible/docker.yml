@@ -1,6 +1,6 @@
 - name: Build Docker image
   docker_image:
-    name: sample-web-app  # Name of the Docker image 
+    name: sample-web-app  # Name of the Docker image (without Docker Hub prefix for build)
     tag: latest           # Tag for the Docker image (e.g., 'latest')
     source: build         # Source specifies that the image will be built
     build:                # The build section tells Docker to build the image
@@ -12,9 +12,12 @@
     msg: "Docker build failed with error: {{ docker_build_result.stderr }}"
   when: docker_build_result.failed
 
+- name: Tag Docker image for Docker Hub
+  command: docker tag sample-web-app:latest docker.io/jazwii/sample-web-app:latest
+
 - name: Push Docker image to Docker Hub
   docker_image:
-    name: sample-web-app                   # Name of the Docker image 
+    name: docker.io/jazwii/sample-web-app  # Full repository path on Docker Hub
     tag: latest                            # Tag to push the image with
     push: true                             # Set this to push the image
     source: local                          # The image source, since it was built locally
