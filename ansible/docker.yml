@@ -1,6 +1,6 @@
 - name: Build Docker image
   community.docker.docker_image:
-    name: docker.io/jazwii/sample-web-app
+    name: Dockerfile
     tag: latest
     build: true
     path: ../app/
