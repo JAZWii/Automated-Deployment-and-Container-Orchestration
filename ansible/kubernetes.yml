@@ -13,5 +13,6 @@
 - name: Apply Kubernetes Service
   kubernetes.core.k8s:
     state: present
+    namespace: default
     definition: "{{ lookup('file', '../k8s/service.yaml') }}"  # Ensure the path is correct for the service file
   when: deployment_result.changed  # Proceed with service creation only if deployment succeeded
