@@ -1,16 +1,17 @@
 - name: Apply Kubernetes Deployment
   kubernetes.core.k8s:
     state: present
-    definition: "{{ lookup('file', '../k8s/deployment.yaml') }}"
-  register: deployment_result
+    namespace: default 
+    definition: "{{ lookup('file', '../k8s/deployment.yaml') }}"  # Ensure this path is correct
+  register: deployment_result  # Registering the result of the deployment
 
 - name: Fail if Kubernetes deployment fails
   fail:
     msg: "Kubernetes deployment failed with error: {{ deployment_result.stderr }}"
-  when: deployment_result.failed
+  when: deployment_result.failed  # Checks if the deployment failed
 
 - name: Apply Kubernetes Service
   kubernetes.core.k8s:
     state: present
-    definition: "{{ lookup('file', '../k8s/service.yaml') }}"
-  when: deployment_result.ok
+    definition: "{{ lookup('file', '../k8s/service.yaml') }}"  # Ensure the path is correct for the service file
+  when: deployment_result.changed  # Proceed with service creation only if deployment succeeded
