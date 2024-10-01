@@ -1,7 +1,7 @@
 - name: Apply Kubernetes Deployment
-  shell: kubectl apply -f ../k8s/deployment.yaml
-  args:
-    chdir: ../k8s
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('file', '../k8s/deployment.yaml') }}"
   register: deployment_result
 
 - name: Fail if Kubernetes deployment fails
@@ -10,7 +10,7 @@
   when: deployment_result.failed
 
 - name: Apply Kubernetes Service
-  shell: kubectl apply -f ../k8s/service.yaml
-  args:
-    chdir: ../k8s
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('file', '../k8s/service.yaml') }}"
   when: deployment_result.ok
