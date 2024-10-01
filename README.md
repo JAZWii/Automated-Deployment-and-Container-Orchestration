@@ -27,7 +27,7 @@ sudo apt-get install -y kubectl
 
 Make sure you have Python installed and the necessary Ansible collections for Docker and Kubernetes.
 
-Install Python if it’s not already installed:
+Install Python if it's not already installed:
 
 ```bash
 
@@ -53,6 +53,14 @@ Ensure the Kubernetes namespace you are deploying to exists. You can create a na
 ```bash
 
 kubectl create namespace default  # or replace 'default' with any namespace
+```
+### 5. Minikube Tunnel
+
+If you are using Minikube for Kubernetes, you need to create a tunnel to expose services. Run the following command:
+
+```bash
+
+minikube tunnel
 ```
 ## Usage
 ### 1. Clone the Repository
@@ -112,7 +120,8 @@ Project Structure
 ├── README.md                 # Project documentation
 ├── ansbile                   # Ansible inventory file
 │   ├── docker.yml            # Ansible playbook for building and pushing the Docker image
-│   └── kubernetes.yml        # Ansible playbook for deploying the application to Kubernetes
+│   ├── kubernetes.yml        # Ansible playbook for deploying the application to Kubernetes
+│   └── playbook.yml          # Ansible main playbook
 ├── k8s
 │   ├── deployment.yaml        # Kubernetes deployment file
 │   └── service.yaml           # Kubernetes service file
@@ -120,5 +129,4 @@ Project Structure
     ├── Dockerfile            # Dockerfile for building the Docker image
     ├── app.py                # Application files
     └── requirements.txt      # Application files
-
 ```
