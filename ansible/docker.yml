@@ -1,29 +1,29 @@
 - name: Build Docker image
   docker_image:
-    name: sample-web-app  # Name of the Docker image (without Docker Hub prefix for build)
-    tag: latest           # Tag for the Docker image (e.g., 'latest')
+    name: sample-web-app  # Name of the Docker image (no prefix for local build)
+    tag: latest           # Tag for the Docker image
     source: build         # Source specifies that the image will be built
-    build:                # The build section tells Docker to build the image
-      path: ../app/       # Path to the directory containing the Dockerfile and app files
-  register: docker_build_result  # Registers the result of the build process for later use
+    build:                
+      path: ../app/       # Path to the directory containing Dockerfile and application files
+  register: docker_build_result  # Store result of Docker build process
 
 - name: Fail if Docker build fails
   fail:
     msg: "Docker build failed with error: {{ docker_build_result.stderr }}"
-  when: docker_build_result.failed
+  when: docker_build_result.failed  # Condition to fail if the build fails
 
 - name: Tag Docker image for Docker Hub
   command: docker tag sample-web-app:latest docker.io/jazwii/sample-web-app:latest
 
 - name: Push Docker image to Docker Hub
   docker_image:
-    name: docker.io/jazwii/sample-web-app  # Full repository path on Docker Hub
-    tag: latest                            # Tag to push the image with
-    push: true                             # Set this to push the image
-    source: local                          # The image source, since it was built locally
-  register: docker_push_result  # Registers the result of the push process
+    name: docker.io/jazwii/sample-web-app  # Docker Hub repository
+    tag: latest                            # Tag for the image on Docker Hub
+    push: true                             # Push the image to Docker Hub
+    source: local                          # Use the locally built image
+  register: docker_push_result  # Store result of Docker push process
 
 - name: Fail if Docker push fails
   fail:
     msg: "Docker push failed with error: {{ docker_push_result.stderr }}"
-  when: docker_push_result.failed
+  when: docker_push_result.failed  # Condition to fail if the push fails

@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sample-web-app
+  name: sample-web-app  # Name of the deployment
 spec:
-  replicas: 2
+  replicas: 2  # Number of application replicas
   selector:
     matchLabels:
-      app: sample-web-app
+      app: sample-web-app  # Label to match with the pod template
   template:
     metadata:
       labels:
-        app: sample-web-app
+        app: sample-web-app  # Label for the pod
     spec:
       containers:
-        - name: web-app-container
-          image: docker.io/jazwii/sample-web-app:latest  # the image which has been pushed to my Docker Hub
+        - name: web-app-container  # Container name
+          image: docker.io/jazwii/sample-web-app:latest  # Docker image to pull
           ports:
-            - containerPort: 8080
+            - containerPort: 8080  # Exposed port inside the container
           resources:
             requests:
-              memory: "128Mi"
-              cpu: "250m"
+              memory: "128Mi"  # Memory request for container
+              cpu: "250m"      # CPU request for container
             limits:
-              memory: "256Mi"
-              cpu: "500m"
+              memory: "256Mi"  # Memory limit for container
+              cpu: "500m"      # CPU limit for container

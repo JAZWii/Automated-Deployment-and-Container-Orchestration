@@ -1,17 +1,17 @@
-# Dockerfile
+# Use Python 3.9-slim base image
 FROM python:3.9-slim
 
-# Set working directory
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the current directory contents into the container
+# Copy all files from the local directory to the container
 COPY . .
 
-# Install dependencies from requirements.txt
+# Install dependencies listed in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose the application port
+# Expose port 8080 to the host machine
 EXPOSE 8080
 
-# Command to run the application
+# Command to run the Flask application
 CMD ["python", "app.py"]

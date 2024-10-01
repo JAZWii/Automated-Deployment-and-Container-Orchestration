@@ -1,4 +1,4 @@
 - hosts: localhost
   tasks:
-    - include_tasks: docker.yml    # Build and push Docker image
-    - include_tasks: kubernetes.yml  # Deploy to kubernetes
+    - include_tasks: docker.yml    # Task to handle Docker image build and push
+    - include_tasks: kubernetes.yml  # Task to handle Kubernetes deployment and service creation
