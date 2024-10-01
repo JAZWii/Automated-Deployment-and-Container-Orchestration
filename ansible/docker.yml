@@ -17,8 +17,8 @@
   docker_image:
     name: docker.io/jazwii/sample-web-app
     tag: latest
-    push:
-      source: build
+    push: true
+    source: build
   register: docker_push_result
 
 - name: Fail if Docker push fails
