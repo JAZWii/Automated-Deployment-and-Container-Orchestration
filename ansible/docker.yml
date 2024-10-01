@@ -1,6 +1,6 @@
 - name: Build Docker image
   docker_image:
-    name: sample-web-app  # Name of the Docker image (this is not the Dockerfile name, but the image name)
+    name: sample-web-app  # Name of the Docker image 
     tag: latest           # Tag for the Docker image (e.g., 'latest')
     source: build         # Source specifies that the image will be built
     build:                # The build section tells Docker to build the image
@@ -14,7 +14,7 @@
 
 - name: Push Docker image to Docker Hub
   docker_image:
-    name: docker.io/jazwii/sample-web-app  # Your Docker Hub image URL
+    name: sample-web-app                   # Name of the Docker image 
     tag: latest                            # Tag to push the image with
     push: true                             # Set this to push the image
     source: local                          # The image source, since it was built locally
