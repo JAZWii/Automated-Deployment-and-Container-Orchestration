@@ -2,6 +2,7 @@
   docker_image:
     name: sample-web-app  # Name of the Docker image (this is not the Dockerfile name, but the image name)
     tag: latest           # Tag for the Docker image (e.g., 'latest')
+    source: build
     build:           # Tells Docker to build the image
       path: ../app/         # Path to the directory containing the Dockerfile (relative to where the playbook is running)
   register: docker_build_result  # Registers the result of the build process for later use
@@ -13,7 +14,7 @@
   when: docker_build_result.failed
 
 - name: Push Docker image to Docker Hub
-  community.docker.docker_image:
+  docker_image:
     name: docker.io/jazwii/sample-web-app
     tag: latest
     push:
